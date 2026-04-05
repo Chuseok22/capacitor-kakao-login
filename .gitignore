@@ -1,10 +1,38 @@
-.idea
-TODO.md
+# 의존성
 node_modules/
+
+# 빌드 산출물
+dist/
+*.tsbuildinfo
+
+# Android 빌드
 android/build/
 android/.gradle/
+
+# iOS 빌드
 ios/build/
 ios/DerivedData/
-.DS_Store
 
-.report
+# 문서 (로컬 작업용)
+docs/
+
+# 개발 메모
+TODO.md
+.report/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 로그
+*.log
+npm-debug.log*
+
+# 환경변수
+.env
+.env.*
+!.env.example
