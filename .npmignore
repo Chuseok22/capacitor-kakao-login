@@ -1,0 +1,16 @@
+.github/
+.idea/
+.claude/
+docs/
+src/
+ios/Tests/
+android/build/
+*.map
+CLAUDE.md
+KAKAO_CAPACITOR_PLUGIN_PLAN.md
+TODO.md
+tsconfig.json
+rollup.config.js
+.eslintrc
+.prettierrc
+package-lock.json
