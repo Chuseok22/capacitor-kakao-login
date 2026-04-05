@@ -5,7 +5,7 @@ docs/
 src/
 ios/Tests/
 android/build/
-*.map
+**/*.map
 CLAUDE.md
 KAKAO_CAPACITOR_PLUGIN_PLAN.md
 TODO.md
