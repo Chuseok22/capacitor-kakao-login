@@ -7,3 +7,5 @@ ios/build/
 ios/DerivedData/
 .DS_Store
 package-lock.json
+
+.report
