@@ -1,6 +1,5 @@
 .idea
 TODO.md
-dist/
 node_modules/
 android/build/
 android/.gradle/

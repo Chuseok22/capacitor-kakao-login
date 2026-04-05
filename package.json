@@ -4,7 +4,7 @@
   "description": "Capacitor plugin for Kakao social login (iOS & Android)",
   "main": "dist/plugin.cjs.js",
   "module": "dist/plugin.esm.js",
-  "types": "dist/definitions.d.ts",
+  "types": "dist/esm/index.d.ts",
   "unpkg": "dist/plugin.js",
   "files": [
     "dist/",
