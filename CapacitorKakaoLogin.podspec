@@ -1,6 +1,9 @@
+require 'json'
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+
 Pod::Spec.new do |s|
   s.name         = 'CapacitorKakaoLogin'
-  s.version      = '1.0.0'
+  s.version      = package['version']
   s.summary      = 'Capacitor plugin for Kakao social login (iOS & Android)'
   s.homepage     = 'https://github.com/chuseok22/capacitor-kakao-login'
   s.license      = 'MIT'
