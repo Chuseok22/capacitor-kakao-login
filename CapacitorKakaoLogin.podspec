@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '13.0'
   s.swift_version = '5.9'
   s.dependency 'Capacitor'
-  s.dependency 'KakaoSDKAuth', '~> 2.0'
-  s.dependency 'KakaoSDKUser', '~> 2.0'
+  s.dependency 'KakaoSDKAuth', '~> 2.23'
+  s.dependency 'KakaoSDKUser', '~> 2.23'
 end

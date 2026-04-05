@@ -30,9 +30,11 @@ public class KakaoLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         }
     }
 
-    private func handleLoginResult(call: CAPPluginCall, oauthToken: OAuthToken?, error: Error?) {
+    private func handleLoginResult(call: CAPPluginCall, oauthToken _: OAuthToken?, error: Error?) {
         if let error = error {
-            call.reject("카카오 로그인 실패", nil, error)
+            DispatchQueue.main.async {
+                call.reject("카카오 로그인 실패", nil, error)
+            }
             return
         }
 
