@@ -14,10 +14,13 @@ class KakaoLoginPlugin : Plugin() {
 
     @PluginMethod
     fun login(call: PluginCall) {
-        val context = context
+        // ApplicationContext 대신 Activity 사용 — startActivity() 호출이 내부적으로 필요하기 때문
+        val activity = activity ?: run {
+            call.reject("Activity를 사용할 수 없습니다")
+            return
+        }
 
         // OAuthToken 콜백 — 앱/계정 로그인 공통 처리
-        // token 파라미터는 의도적으로 미사용 (_) — socialId만 반환하므로 token 불필요
         val callback: (OAuthToken?, Throwable?) -> Unit = callback@{ _, error ->
             if (error != null) {
                 call.reject("카카오 로그인 실패: ${error.message}")
@@ -42,12 +45,12 @@ class KakaoLoginPlugin : Plugin() {
             }
         }
 
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(activity)) {
             // 카카오톡 앱 설치 시 앱 로그인 우선 시도
-            UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
+            UserApiClient.instance.loginWithKakaoTalk(activity, callback = callback)
         } else {
             // 카카오톡 미설치 시 카카오 계정 웹뷰 로그인으로 폴백
-            UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+            UserApiClient.instance.loginWithKakaoAccount(activity, callback = callback)
         }
     }
 }
