@@ -17,6 +17,7 @@
     "dist/",
     "ios/",
     "android/",
+    "Package.swift",
     "CapacitorKakaoLogin.podspec"
   ],
   "author": "Baek Jihoon",

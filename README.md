@@ -83,6 +83,24 @@ func application(_ app: UIApplication, open url: URL,
 
 ## Android 설정
 
+### 0. Kotlin Gradle 플러그인 classpath 추가
+
+`android/build.gradle`의 `buildscript` 블록에 Kotlin 플러그인 classpath를 추가합니다.
+
+```groovy
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21'
+    }
+}
+```
+
+> 이 단계가 없으면 `cap add android` 또는 `cap sync` 후 Gradle sync 오류가 발생합니다.
+
 ### 1. KakaoSDK 초기화 (`Application` 클래스)
 
 `Application` 서브클래스를 생성하고 KakaoSDK를 초기화합니다.
