@@ -3,9 +3,16 @@
   "version": "0.1.2",
   "description": "Capacitor plugin for Kakao social login (iOS & Android)",
   "main": "dist/plugin.cjs.js",
-  "module": "dist/plugin.esm.js",
+  "module": "dist/plugin.esm.mjs",
   "types": "dist/esm/index.d.ts",
   "unpkg": "dist/plugin.js",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/plugin.esm.mjs",
+      "require": "./dist/plugin.cjs.js"
+    }
+  },
   "files": [
     "dist/",
     "ios/",
@@ -14,7 +21,6 @@
   ],
   "author": "Baek Jihoon",
   "license": "MIT",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/chuseok22/capacitor-kakao-login.git"
@@ -29,7 +35,7 @@
     "android"
   ],
   "scripts": {
-    "build": "npm run clean && tsc && rollup -c rollup.config.js",
+    "build": "npm run clean && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "lint": "eslint . --ext ts",
     "fmt": "prettier --write --parser typescript 'src/**/*.ts'",
