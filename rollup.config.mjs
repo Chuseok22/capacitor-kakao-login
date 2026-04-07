@@ -20,7 +20,7 @@ export default {
       inlineDynamicImports: true,
     },
     {
-      file: 'dist/plugin.esm.js',
+      file: 'dist/plugin.esm.mjs',
       format: 'esm',
       sourcemap: true,
       inlineDynamicImports: true,
