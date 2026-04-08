@@ -6,15 +6,32 @@ import com.getcapacitor.PluginCall
 import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 
 // name 값은 TypeScript registerPlugin('KakaoLogin', ...) 과 반드시 일치해야 한다
 @CapacitorPlugin(name = "KakaoLogin")
 class KakaoLoginPlugin : Plugin() {
 
+    /**
+     * 플러그인 로드 시 KakaoSDK를 자동 초기화한다.
+     * capacitor.config.ts의 plugins.KakaoLogin.appKey 값을 읽는다.
+     * Application 서브클래스를 별도로 만들 필요가 없다.
+     */
+    override fun load() {
+        val appKey = config.getString("appKey")
+        if (appKey.isNullOrBlank()) {
+            println("[KakaoLoginPlugin] ⚠️ appKey가 capacitor.config.ts에 설정되지 않았습니다.")
+            println("[KakaoLoginPlugin]   plugins: { KakaoLogin: { appKey: 'YOUR_NATIVE_APP_KEY' } }")
+            return
+        }
+
+        // Application context 사용 — KakaoSdk.init은 앱 수명 동안 유지되어야 하므로
+        KakaoSdk.init(context, appKey)
+    }
+
     @PluginMethod
     fun login(call: PluginCall) {
-        // ApplicationContext 대신 Activity 사용 — startActivity() 호출이 내부적으로 필요하기 때문
         val activity = activity ?: run {
             call.reject("Activity를 사용할 수 없습니다")
             return

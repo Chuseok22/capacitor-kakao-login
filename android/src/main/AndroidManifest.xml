@@ -1,3 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Gradle manifest merging으로 호스트 앱의 AndroidManifest.xml에 자동 주입된다.
+        사용자는 android/app/build.gradle에 다음 한 줄만 추가하면 된다:
+            manifestPlaceholders = [kakaoNativeAppKey: "YOUR_NATIVE_APP_KEY"]
+    -->
+    <application>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao${kakaoNativeAppKey}" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>
