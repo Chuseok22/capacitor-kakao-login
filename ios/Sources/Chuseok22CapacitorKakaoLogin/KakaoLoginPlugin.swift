@@ -20,15 +20,28 @@ public class KakaoLoginPlugin: CAPPlugin, CAPBridgedPlugin {
             return
         }
         KakaoSDK.initSDK(appKey: appKey)
-        // handleOpenUrl 오버라이드로 URL 처리 — ApplicationDelegateProxy.add() 불필요
+        // Capacitor 8: CAPPlugin에 handleOpenUrl 오버라이드 불가 — NotificationCenter로 URL 수신
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleOpenURL(_:)),
+            name: .capacitorOpenURL,
+            object: nil
+        )
     }
 
-    // Capacitor가 AppDelegate.application(_:open:options:)를 플러그인으로 라우팅
-    @objc public override func handleOpenUrl(_ url: URL, _ options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-        guard AuthApi.isKakaoTalkLoginUrl(url) else { return false }
-        // AuthController.handleOpenUrl은 @MainActor — URL 콜백은 메인 스레드 보장
-        return MainActor.assumeIsolated {
-            AuthController.handleOpenUrl(url: url)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // Capacitor 8 URL 라우팅: AppDelegate → ApplicationDelegateProxy → capacitorOpenURL 알림
+    // notification.object = ["url": URL, "options": [UIApplication.OpenURLOptionsKey: Any]]
+    @objc private func handleOpenURL(_ notification: Notification) {
+        guard let object = notification.object as? [String: Any],
+              let url = object["url"] as? URL else { return }
+        guard AuthApi.isKakaoTalkLoginUrl(url) else { return }
+        // capacitorOpenURL은 메인 스레드에서 발송 — MainActor.assumeIsolated 안전
+        MainActor.assumeIsolated {
+            _ = AuthController.handleOpenUrl(url: url)
         }
     }
 
