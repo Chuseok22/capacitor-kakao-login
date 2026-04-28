@@ -28,7 +28,7 @@ jobs:
       - name: 소스 체크아웃
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.client_payload.sha || 'main' }}
+          ref: ${{ github.event.client_payload.new_tag || github.event.inputs.tag || 'main' }}
 
       - name: Node.js 20 설정
         uses: actions/setup-node@v4
