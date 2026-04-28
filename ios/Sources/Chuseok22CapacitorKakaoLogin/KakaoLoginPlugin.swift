@@ -77,7 +77,22 @@ public class KakaoLoginPlugin: CAPPlugin, CAPBridgedPlugin {
                     call.reject("카카오 사용자 ID를 가져올 수 없습니다")
                     return
                 }
-                call.resolve(["socialId": String(userId)])
+
+                let account = user?.kakaoAccount
+                let profile = account?.profile
+
+                var result: [String: Any] = ["socialId": String(userId)]
+                if let v = profile?.nickname           { result["nickname"] = v }
+                if let v = profile?.profileImageUrl    { result["profileImageUrl"] = v.absoluteString }
+                if let v = profile?.thumbnailImageUrl  { result["thumbnailImageUrl"] = v.absoluteString }
+                if let v = account?.email              { result["email"] = v }
+                if let v = account?.name               { result["name"] = v }
+                if let v = account?.phoneNumber        { result["phoneNumber"] = v }
+                if let v = account?.gender             { result["gender"] = v.rawValue }
+                if let v = account?.birthyear          { result["birthyear"] = v }
+                if let v = account?.birthday           { result["birthday"] = v }
+
+                call.resolve(result)
             }
         }
     }

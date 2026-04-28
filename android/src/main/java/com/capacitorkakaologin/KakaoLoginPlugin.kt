@@ -56,8 +56,20 @@ class KakaoLoginPlugin : Plugin() {
                     return@me
                 }
 
+                val account = user.kakaoAccount
+                val profile = account?.profile
+
                 val result = JSObject()
                 result.put("socialId", userId.toString())
+                profile?.nickname?.let           { result.put("nickname", it) }
+                profile?.profileImageUrl?.let    { result.put("profileImageUrl", it) }
+                profile?.thumbnailImageUrl?.let  { result.put("thumbnailImageUrl", it) }
+                account?.email?.let              { result.put("email", it) }
+                account?.name?.let               { result.put("name", it) }
+                account?.phoneNumber?.let        { result.put("phoneNumber", it) }
+                account?.gender?.let             { result.put("gender", it.name.lowercase()) }
+                account?.birthyear?.let          { result.put("birthyear", it) }
+                account?.birthday?.let           { result.put("birthday", it) }
                 call.resolve(result)
             }
         }
