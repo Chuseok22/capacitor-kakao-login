@@ -1,6 +1,6 @@
 {
   "name": "@chuseok22/capacitor-kakao-login",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Capacitor plugin for Kakao social login (iOS & Android)",
   "main": "dist/plugin.cjs.js",
   "module": "dist/plugin.esm.mjs",
